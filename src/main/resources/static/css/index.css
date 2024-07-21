@@ -1,38 +1,286 @@
+/* Base styles and custom properties */
+:root {
+    --primary-color: #2196f3;
+    --secondary-color: #00c853;
+    --accent-color: #ff4081;
+    --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    --card-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    --glass-effect: rgba(255, 255, 255, 0.1);
+}
+
+/* Modern CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+/* Body Styles */
 body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/image.png') no-repeat center center fixed;
+    background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.4)
+    ),
+    url('/images/image.png') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
+
+/* Add a subtle animation to the background */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Container with glass morphism effect */
 .container {
-    margin-top: 100px;
+    margin-top: 50px;
+    padding: 20px;
+    position: relative;
 }
+
+/* Add floating particles effect */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.1) 100%);
+    animation: particleFloat 20s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-100px) rotate(360deg); }
+}
+
+/* Modern Card Design */
 .card {
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    padding: 25px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
 }
+
+/* Card hover effects */
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
+
+/* Add shimmer effect on card hover */
+.card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            to bottom right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.card:hover::after {
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Enhanced Form Controls */
 .form-control {
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
 }
+
 .form-control:focus {
-    background-color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+    outline: none;
 }
+
+/* Placeholder styling */
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus::placeholder {
+    opacity: 0.7;
+    transform: translateX(10px);
+}
+
+/* Enhanced Button Styles */
 .btn-primary {
-    background-color: #007bff;
+    background: linear-gradient(45deg, var(--primary-color), #64b5f6);
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px 30px;
+    position: relative;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
+
+/* Button hover effects */
 .btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+    background: linear-gradient(45deg, #64b5f6, var(--primary-color));
+    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.5);
+    transform: translateY(-3px);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+/* Add ripple effect to button */
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn-primary:active::after {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+}
+
+/* Add loading animation for buttons */
+.btn-primary.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.btn-primary.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 30px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Add custom animations for elements entering viewport */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Weather-specific elements */
+.weather-icon {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.weather-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.temperature {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: var(--text-shadow);
+    background: linear-gradient(45deg, #fff, #e3f2fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Add custom scrolling animation for weather data */
+.weather-details {
+    transform: translateX(100%);
+    animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
 }
